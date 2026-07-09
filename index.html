@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Walimatul Khitan - Muhammad Kenzo Al Barra</title>
+    <meta name="description" content="Undangan Walimatul Khitan Muhammad Kenzo Al Barra, anak kedua dari Bapak Arief Riansyah & Ibu Icha Rahmah. Sabtu, 1 Agustus 2026 di Hutan Kota Srengseng, Jakarta Barat.">
+    <meta name="theme-color" content="#5B0A0A">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Poppins:wght@300;400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Music -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="assets/audio/musik.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-ornament">
+                <svg viewBox="0 0 100 100" class="preloader-svg">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="url(#gold-gradient)" stroke-width="2" stroke-dasharray="10 5" class="rotating-circle"/>
+                    <defs>
+                        <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#D4A017"/>
+                            <stop offset="50%" style="stop-color:#F9D849"/>
+                            <stop offset="100%" style="stop-color:#D4A017"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <p class="preloader-text">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+            <div class="preloader-bar">
+                <div class="preloader-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Flower Background -->
+    <canvas id="flower-canvas"></canvas>
+
+    <!-- Floating Particles -->
+    <div id="particles-container"></div>
+
+    <!-- Background Music Toggle -->
+    <button id="music-toggle" class="music-btn" aria-label="Toggle music">
+        <svg id="music-icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18V5l12-2v13"/>
+            <circle cx="6" cy="18" r="3"/>
+            <circle cx="18" cy="16" r="3"/>
+        </svg>
+        <svg id="music-icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+            <path d="M9 18V5l12-2v13"/>
+            <circle cx="6" cy="18" r="3"/>
+            <circle cx="18" cy="16" r="3"/>
+            <line x1="1" y1="1" x2="23" y2="23" stroke-width="3"/>
+        </svg>
+    </button>
+
+    <!-- ============================================ -->
+    <!-- SECTION 0: COVER / OPENING -->
+    <!-- ============================================ -->
+    <section id="cover" class="section cover-section">
+        <div class="cover-bg-overlay"></div>
+        <div class="cover-frame">
+            <img src="assets/images/betawi_garden_frame.png" alt="" class="frame-img">
+        </div>
+        <div class="cover-content">
+            <div class="cover-ornament-top">
+                <div class="gigi-balang-pattern"></div>
+            </div>
+            <p class="cover-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+            <div class="cover-divider">
+                <span class="divider-leaf">🌿</span>
+                <span class="divider-line"></span>
+                <span class="divider-diamond">◆</span>
+                <span class="divider-line"></span>
+                <span class="divider-leaf">🌿</span>
+            </div>
+            <h2 class="cover-subtitle">Walimatul Khitan</h2>
+            <h1 class="cover-name">Muhammad Kenzo<br>Al Barra</h1>
+            <div class="cover-divider small">
+                <span class="divider-line short"></span>
+                <span class="divider-diamond small">✦</span>
+                <span class="divider-line short"></span>
+            </div>
+            <p class="cover-date-preview">Sabtu, 1 Agustus 2026</p>
+            <div class="cover-ornament-bottom">
+                <div class="gigi-balang-pattern"></div>
+            </div>
+            <button id="open-invitation" class="btn-open" onclick="openInvitation()">
+                <span class="btn-icon">✉</span>
+                <span class="btn-text">Buka Undangan</span>
+            </button>
+        </div>
+        <div class="floating-leaves">
+            <div class="leaf leaf-1">🍃</div>
+            <div class="leaf leaf-2">🌸</div>
+            <div class="leaf leaf-3">🍃</div>
+            <div class="leaf leaf-4">🌺</div>
+            <div class="leaf leaf-5">🍃</div>
+            <div class="leaf leaf-6">🌸</div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT -->
+    <!-- ============================================ -->
+    <main id="main-content" class="hidden-content">
+
+        <!-- SECTION 1: MUKADIMAH -->
+        <section id="mukadimah" class="section mukadimah-section">
+            <div class="floral-bg-layer"></div>
+            <div class="container">
+                <div class="scroll-reveal">
+                    <div class="ornament-header">
+                        <img src="assets/images/gigi_balang_divider.png" alt="" class="ornament-img">
+                    </div>
+                    <p class="arabic-text">اَلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</p>
+                    <div class="mukadimah-content">
+                        <p class="mukadimah-text">
+                            Dengan memanjatkan puji syukur ke hadirat Allah Subhanahu Wa Ta'ala, 
+                            yang telah melimpahkan rahmat, taufiq, serta hidayah-Nya. 
+                            Shalawat serta salam senantiasa tercurahkan kepada junjungan kita 
+                            Nabi Muhammad Shallallahu 'Alaihi Wasallam.
+                        </p>
+                        <p class="mukadimah-text">
+                            Dengan segala kerendahan hati dan rasa syukur, 
+                            kami bermaksud menyelenggarakan syukuran
+                        </p>
+                        <h2 class="section-highlight">Walimatul Khitan</h2>
+                        <p class="mukadimah-text">
+                            untuk putra kami tercinta. Kami mengundang 
+                            Bapak/Ibu/Saudara/i untuk hadir dan memberikan 
+                            doa restu dalam acara yang InsyaAllah penuh berkah ini.
+                        </p>
+                    </div>
+                    <div class="ornament-footer">
+                        <img src="assets/images/gigi_balang_divider.png" alt="" class="ornament-img flipped">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: PROFIL ANAK / PHOTO GALLERY -->
+        <section id="profil" class="section profil-section">
+            <div class="floral-bg-layer variant-2"></div>
+            <div class="container">
+                <div class="scroll-reveal">
+                    <div class="section-title-wrapper">
+                        <span class="section-icon">✦</span>
+                        <h2 class="section-title">Sang Pangeran Kecil</h2>
+                        <span class="section-icon">✦</span>
+                    </div>
+                    
+                    <!-- Photo Carousel -->
+                    <div class="photo-carousel" id="photo-carousel">
+                        <div class="carousel-track" id="carousel-track">
+                            <div class="carousel-slide active">
+                                <div class="photo-frame betawi-frame">
+                                    <img src="assets/photos/kenzo-1.jpg" alt="Muhammad Kenzo Al Barra" class="photo-img" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="photo-frame betawi-frame">
+                                    <img src="assets/photos/kenzo-2.jpg" alt="Muhammad Kenzo Al Barra" class="photo-img" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="photo-frame betawi-frame">
+                                    <img src="assets/photos/kenzo-3.jpg" alt="Muhammad Kenzo Al Barra" class="photo-img" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="photo-frame betawi-frame">
+                                    <img src="assets/photos/kenzo-4.jpg" alt="Muhammad Kenzo Al Barra" class="photo-img" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="photo-frame betawi-frame">
+                                    <img src="assets/photos/kenzo-5.jpg" alt="Muhammad Kenzo Al Barra" class="photo-img" loading="lazy">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-btn carousel-prev" onclick="prevSlide()" aria-label="Previous photo">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>
+                        </button>
+                        <button class="carousel-btn carousel-next" onclick="nextSlide()" aria-label="Next photo">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,6 15,12 9,18"/></svg>
+                        </button>
+                        <div class="carousel-dots" id="carousel-dots">
+                            <span class="dot active" onclick="goToSlide(0)"></span>
+                            <span class="dot" onclick="goToSlide(1)"></span>
+                            <span class="dot" onclick="goToSlide(2)"></span>
+                            <span class="dot" onclick="goToSlide(3)"></span>
+                            <span class="dot" onclick="goToSlide(4)"></span>
+                        </div>
+                    </div>
+
+                    <div class="child-info">
+                        <h3 class="child-name">Muhammad Kenzo Al Barra</h3>
+                        <div class="info-divider">
+                            <span class="divider-line short"></span>
+                            <span class="divider-diamond small">❋</span>
+                            <span class="divider-line short"></span>
+                        </div>
+                        <p class="child-parents">Anak kedua kami</p>
+                        <p class="parent-names">
+                            <span class="parent-name">Bapak Arief Riansyah</span>
+                            <span class="ampersand">&</span>
+                            <span class="parent-name">Ibu Icha Rahmah</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: CIRCULAR KENZO PHOTO + FAMILY PHOTO -->
+        <section id="keluarga" class="section keluarga-section">
+            <div class="floral-bg-layer variant-3"></div>
+            <div class="container">
+                <div class="scroll-reveal">
+                    <div class="section-title-wrapper">
+                        <span class="section-icon">✦</span>
+                        <h2 class="section-title">Keluarga Kami</h2>
+                        <span class="section-icon">✦</span>
+                    </div>
+
+                    <!-- Circular Kenzo Photo -->
+                    <div class="circle-photo-wrapper fade-in-scroll">
+                        <div class="circle-photo-ring">
+                            <div class="circle-photo">
+                                <img src="assets/photos/kenzo-3.jpg" alt="Muhammad Kenzo Al Barra">
+                            </div>
+                        </div>
+                        <h3 class="circle-photo-name">Muhammad Kenzo Al Barra</h3>
+                        <p class="circle-photo-subtitle">Yang akan di-Khitankan</p>
+                    </div>
+
+                    <!-- Family Photo -->
+                    <div class="family-photo-wrapper fade-in-scroll">
+                        <div class="family-photo-frame">
+                            <img src="assets/photos/keluarga.jpg" alt="Keluarga Besar Arief Riansyah & Icha Rahmah" class="family-photo-img">
+                        </div>
+                        <div class="family-caption">
+                            <p class="family-caption-text">Keluarga Besar</p>
+                            <h3 class="family-caption-names">Arief Riansyah & Icha Rahmah</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: DETAIL ACARA -->
+        <section id="acara" class="section acara-section">
+            <div class="floral-bg-layer variant-4"></div>
+            <div class="container">
+                <div class="scroll-reveal">
+                    <div class="section-title-wrapper">
+                        <span class="section-icon">✦</span>
+                        <h2 class="section-title">Detail Acara</h2>
+                        <span class="section-icon">✦</span>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-card-inner">
+                            <div class="event-card-header">
+                                <h3>Walimatul Khitan</h3>
+                            </div>
+                            <div class="event-card-body">
+                                <div class="event-detail">
+                                    <div class="detail-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                            <line x1="16" y1="2" x2="16" y2="6"/>
+                                            <line x1="8" y1="2" x2="8" y2="6"/>
+                                            <line x1="3" y1="10" x2="21" y2="10"/>
+                                        </svg>
+                                    </div>
+                                    <div class="detail-text">
+                                        <span class="detail-label">Hari & Tanggal</span>
+                                        <span class="detail-value">Sabtu, 1 Agustus 2026</span>
+                                    </div>
+                                </div>
+                                <div class="event-detail">
+                                    <div class="detail-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <polyline points="12,6 12,12 16,14"/>
+                                        </svg>
+                                    </div>
+                                    <div class="detail-text">
+                                        <span class="detail-label">Waktu</span>
+                                        <span class="detail-value">11.00 – 17.00 WIB</span>
+                                    </div>
+                                </div>
+                                <div class="event-detail">
+                                    <div class="detail-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                            <circle cx="12" cy="10" r="3"/>
+                                        </svg>
+                                    </div>
+                                    <div class="detail-text">
+                                        <span class="detail-label">Lokasi</span>
+                                        <span class="detail-value venue-name">Hutan Kota Srengseng</span>
+                                        <span class="detail-address">Jl. H. Kelik, RT.8/RW.6, Srengseng, Kec. Kembangan, Kota Jakarta Barat, DKI Jakarta 11630</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Countdown Timer -->
+                    <div class="countdown-wrapper">
+                        <h3 class="countdown-title">Hitung Mundur Menuju Hari Bahagia</h3>
+                        <div class="countdown" id="countdown">
+                            <div class="countdown-item">
+                                <span class="countdown-number" id="days">00</span>
+                                <span class="countdown-label">Hari</span>
+                            </div>
+                            <div class="countdown-separator">:</div>
+                            <div class="countdown-item">
+                                <span class="countdown-number" id="hours">00</span>
+                                <span class="countdown-label">Jam</span>
+                            </div>
+                            <div class="countdown-separator">:</div>
+                            <div class="countdown-item">
+                                <span class="countdown-number" id="minutes">00</span>
+                                <span class="countdown-label">Menit</span>
+                            </div>
+                            <div class="countdown-separator">:</div>
+                            <div class="countdown-item">
+                                <span class="countdown-number" id="seconds">00</span>
+                                <span class="countdown-label">Detik</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: PETA LOKASI -->
+        <section id="lokasi" class="section lokasi-section">
+            <div class="floral-bg-layer variant-2"></div>
+            <div class="container">
+                <div class="scroll-reveal">
+                    <div class="section-title-wrapper">
+                        <span class="section-icon">✦</span>
+                        <h2 class="section-title">Lokasi Acara</h2>
+                        <span class="section-icon">✦</span>
+                    </div>
+                    
+                    <div class="map-wrapper">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.75!3d-6.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTInMDAuMCJTIDEwNsKwNDUnMDAuMCJF!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                            width="100%" 
+                            height="300" 
+                            style="border:0; border-radius: 16px;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Peta Lokasi Hutan Kota Srengseng">
+                        </iframe>
+                    </div>
+                    
+                    <a href="https://maps.app.goo.gl/UMcZmKV9S7qtRUJ49?g_st=ic" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="btn-maps" 
+                       id="btn-maps">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="maps-icon">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <span>Buka Google Maps</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: UCAPAN & DOA TAMU -->
+        <section id="ucapan" class="section ucapan-section">
+            <div class="floral-bg-layer variant-5"></div>
+            <div class="container">
+                <div class="scroll-reveal">
+                    <div class="section-title-wrapper">
+                        <span class="section-icon">✦</span>
+                        <h2 class="section-title">Ucapan & Doa</h2>
+                        <span class="section-icon">✦</span>
+                    </div>
+                    
+                    <p class="ucapan-subtitle">Berikan ucapan dan doa terbaik Anda untuk Kenzo</p>
+
+                    <!-- Wish Form -->
+                    <div class="wish-form-card">
+                        <form id="wish-form" onsubmit="submitWish(event)">
+                            <div class="form-group">
+                                <label for="wish-name">Nama Anda</label>
+                                <input type="text" id="wish-name" placeholder="Masukkan nama Anda..." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="wish-message">Ucapan & Doa</label>
+                                <textarea id="wish-message" rows="4" placeholder="Tulis ucapan dan doa Anda untuk Kenzo..." required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="wish-attendance">Konfirmasi Kehadiran</label>
+                                <select id="wish-attendance">
+                                    <option value="hadir">✅ Insya Allah Hadir</option>
+                                    <option value="tidak">❌ Maaf, Tidak Bisa Hadir</option>
+                                    <option value="ragu">🤔 Masih Ragu</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-submit-wish">
+                                <span>Kirim Ucapan</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                    <line x1="22" y1="2" x2="11" y2="13"/>
+                                    <polygon points="22,2 15,22 11,13 2,9"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Published Wishes -->
+                    <div class="wishes-list" id="wishes-list">
+                        <div class="wishes-count">
+                            <span id="wishes-count-number">0</span> Ucapan
+                        </div>
+                        <!-- Wishes will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: DOA & PENUTUP -->
+        <section id="penutup" class="section penutup-section">
+            <div class="floral-bg-layer variant-dark"></div>
+            <div class="container">
+                <div class="scroll-reveal">
+                    <div class="ornament-header light">
+                        <img src="assets/images/gigi_balang_divider.png" alt="" class="ornament-img">
+                    </div>
+                    
+                    <!-- Circular Photo in Closing -->
+                    <div class="circle-photo-wrapper closing-circle fade-in-scroll">
+                        <div class="circle-photo-ring gold">
+                            <div class="circle-photo">
+                                <img src="assets/photos/kenzo-1.jpg" alt="Muhammad Kenzo Al Barra">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="penutup-content">
+                        <p class="penutup-quote">
+                            "Ya Allah, jadikanlah ia anak yang shalih, 
+                            yang senantiasa taat kepada-Mu, berbakti kepada orang tua, 
+                            serta bermanfaat bagi sesama."
+                        </p>
+                        
+                        <div class="penutup-divider">
+                            <span class="divider-line"></span>
+                            <span class="divider-diamond">✦</span>
+                            <span class="divider-line"></span>
+                        </div>
+                        
+                        <p class="penutup-text">
+                            Merupakan suatu kehormatan dan kebahagiaan bagi kami 
+                            apabila Bapak/Ibu/Saudara/i berkenan hadir 
+                            untuk memberikan doa restu kepada putra kami.
+                        </p>
+                        <p class="penutup-text">
+                            Atas kehadiran dan doa restu yang diberikan, 
+                            kami mengucapkan terima kasih.
+                        </p>
+                        
+                        <p class="salam-penutup">وَالسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</p>
+                        
+                        <div class="keluarga-info">
+                            <p class="keluarga-label">Kami yang mengundang,</p>
+                            <p class="keluarga-names">Keluarga Besar</p>
+                            <p class="keluarga-main">Arief Riansyah & Icha Rahmah</p>
+                        </div>
+                    </div>
+                    
+                    <div class="ornament-footer light">
+                        <img src="assets/images/gigi_balang_divider.png" alt="" class="ornament-img flipped">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="footer-ornament">
+                <div class="gigi-balang-pattern small"></div>
+            </div>
+            <p class="footer-text">Made with ❤️ for Kenzo</p>
+            <p class="footer-copyright">© 2026 Walimatul Khitan Muhammad Kenzo Al Barra</p>
+        </footer>
+    </main>
+
+    <!-- Scroll to Top -->
+    <button id="scroll-top" class="scroll-top-btn" onclick="scrollToTop()" aria-label="Scroll to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18,15 12,9 6,15"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
