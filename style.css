@@ -81,7 +81,7 @@ img { max-width: 100%; height: auto; display: block; }
     pointer-events: none;
     opacity: 0.85;
 }
-.corner-ornament img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.corner-ornament img { width: 100%; height: 100%; object-fit: contain; }
 .corner-ornament.top-left { top: 0; left: 0; }
 .corner-ornament.top-right { top: 0; right: 0; transform: scaleX(-1); }
 .corner-ornament.bottom-left { bottom: 0; left: 0; transform: scaleY(-1); }
@@ -211,74 +211,72 @@ img { max-width: 100%; height: auto; display: block; }
 .vip-opening-card {
     position: relative;
     z-index: 10;
-    text-align: center;
-    background: rgba(40, 5, 5, 0.7); /* Darker solid maroon-black glass */
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(212, 175, 55, 0.4); /* Gold border */
-    border-radius: 24px;
-    padding: 40px 30px;
-    width: 90%;
-    max-width: 420px;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.12); /* Light transparent glass */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 20px;
+    padding: 35px 30px;
+    width: 88%;
+    max-width: 400px;
     margin: 0 auto;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(212, 175, 55, 0.1);
+    box-shadow: none; /* No loud shadows */
 }
 .vip-yth {
     font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--gold-light);
-    margin-bottom: 5px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    text-transform: none;
 }
 .vip-guest {
-    font-family: var(--font-elegant);
-    font-size: 1.6rem;
+    font-family: var(--font-body);
+    font-size: 1.15rem;
     color: #fff;
-    font-weight: 600;
-    margin-bottom: 20px;
+    font-weight: 500;
+    margin-bottom: 35px; /* Large gap before event text */
     line-height: 1.4;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    text-shadow: none;
 }
 .vip-divider {
-    width: 60px;
-    height: 2px;
-    background: var(--gold);
-    margin: 0 auto 20px auto;
-    border-radius: 2px;
+    display: none; /* Hidden based on clean reference */
 }
 .vip-event {
     font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: rgba(255,255,255,0.85);
-    margin-bottom: 10px;
-    letter-spacing: 1px;
+    margin-bottom: 5px;
+    letter-spacing: 0;
 }
 .vip-name {
     font-family: var(--font-display);
-    font-size: clamp(2.4rem, 8vw, 3.2rem);
-    color: var(--gold-light);
-    font-weight: 600;
-    font-style: italic;
-    line-height: 1.2;
-    margin-bottom: 35px;
-    text-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    font-size: clamp(2.2rem, 8vw, 2.6rem);
+    color: #fff;
+    font-weight: 400; /* Lighter font weight */
+    font-style: normal;
+    line-height: 1.15;
+    margin-bottom: 25px;
+    text-shadow: none;
 }
 .vip-opening-card .btn-open {
     width: 100%;
-    background: linear-gradient(135deg, var(--gold), #e6c57a);
-    color: var(--maroon-dark);
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
     border: none;
-    box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 16px 20px;
+    box-shadow: none;
+    font-family: var(--font-body);
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    padding: 14px 20px;
+    border-radius: 30px;
 }
 .vip-opening-card .btn-open:hover {
-    background: linear-gradient(135deg, #e6c57a, var(--gold));
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+    background: rgba(255, 255, 255, 0.35);
+    transform: none;
+    box-shadow: none;
 }
 
 /* Open Button */
