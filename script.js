@@ -20,9 +20,10 @@ function openInvitation() {
     // Show door animation
     doorSection.style.display = 'flex';
 
-    // Start music
+    // Start music (Skip intro)
     if (audio) {
         audio.volume = 0.4;
+        audio.currentTime = 14; // Skip intro 14 detik agar langsung masuk bagian bagus
         audio.play().then(() => {
             isMusicPlaying = true;
             musicBtn.classList.add('playing');
