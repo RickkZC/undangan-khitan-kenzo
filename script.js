@@ -149,17 +149,27 @@ function initCountdown() {
 }
 
 // ============================================
-// GUESTBOOK
+// GUESTBOOK (Google Sheets Backend)
 // ============================================
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbweGoDDjI60WHQz35XW5LcERYapWM-8OuC5RJZWdziN-4OlsSyosPFPmG-18YFIWzowaw/exec';
 const WISH_KEY = 'kenzo_khitan_wishes';
 
-function getWishes() {
-    try { return JSON.parse(localStorage.getItem(WISH_KEY)) || []; }
-    catch { return []; }
-}
-function saveWishes(w) { localStorage.setItem(WISH_KEY, JSON.stringify(w)); }
+let wishesData = [];
 
-function submitWish(e) {
+async function fetchGlobalWishes() {
+    try {
+        const res = await fetch(SCRIPT_URL);
+        const data = await res.json();
+        wishesData = data;
+        localStorage.setItem(WISH_KEY, JSON.stringify(wishesData));
+    } catch (e) {
+        console.error('Failed fetching wishes:', e);
+        wishesData = JSON.parse(localStorage.getItem(WISH_KEY)) || [];
+    }
+    renderWishesData();
+}
+
+async function submitWish(e) {
     e.preventDefault();
     const btn = document.querySelector('.btn-submit');
     const oldText = btn.textContent;
@@ -176,14 +186,32 @@ function submitWish(e) {
         return;
     }
 
-    const wishes = getWishes();
-    wishes.unshift({ id: Date.now(), name, message: msg, attendance: att, time: new Date().toISOString() });
-    saveWishes(wishes);
-    
+    // Optimistic UI update (langsung muncul di layar sendiri)
+    const newWish = { name: name, message: msg, attendance: att, time: new Date().toISOString() };
+    wishesData.unshift(newWish);
+    renderWishesData();
     document.getElementById('wish-form').reset();
-    renderWishes();
 
-    // Feedback
+    // Kirim ke Google Sheets secara background
+    try {
+        let formData = new URLSearchParams();
+        formData.append('name', name);
+        formData.append('attendance', att);
+        formData.append('message', msg);
+        
+        await fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors' // Hindari error CORS di browser
+        });
+        
+        // Refresh data dari server 1 detik kemudian untuk sinkronisasi
+        setTimeout(fetchGlobalWishes, 1000); 
+    } catch (error) {
+        console.error("Gagal mengirim ke server:", error);
+    }
+
+    // Feedback Sukses
     btn.textContent = '✅ Terkirim!';
     btn.style.background = '#2E7D32';
     setTimeout(() => { 
@@ -193,16 +221,15 @@ function submitWish(e) {
     }, 2000);
 }
 
-function renderWishes() {
-    const wishes = getWishes();
+function renderWishesData() {
     const list = document.getElementById('wishes-list');
-    document.getElementById('wishes-count-number').textContent = wishes.length;
+    document.getElementById('wishes-count-number').textContent = wishesData.length;
 
     list.querySelectorAll('.wish-card').forEach(c => c.remove());
 
     const labels = { hadir: 'Hadir', tidak: 'Tidak Hadir', ragu: 'Ragu-ragu' };
 
-    wishes.forEach(w => {
+    wishesData.forEach(w => {
         const card = document.createElement('div');
         card.className = 'wish-card';
         card.innerHTML = `
@@ -220,7 +247,13 @@ function renderWishes() {
     });
 }
 
-function loadWishes() { renderWishes(); }
+function loadWishes() { 
+    // Tampilkan data lokal secepat kilat
+    wishesData = JSON.parse(localStorage.getItem(WISH_KEY)) || [];
+    renderWishesData();
+    // Lalu tarik data global terbaru dari Google Sheets
+    fetchGlobalWishes();
+}
 
 function timeAgo(d) {
     const diff = Date.now() - new Date(d).getTime();
