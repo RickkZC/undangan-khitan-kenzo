@@ -149,46 +149,84 @@ function initCountdown() {
 }
 
 // ============================================
-// GUESTBOOK
+// GUESTBOOK (Permanent Storage via KVDB)
 // ============================================
+const KVDB_URL = 'https://kvdb.io/15zZiszWTxQYhXX8u4XwmX/wishes';
 const WISH_KEY = 'kenzo_khitan_wishes';
 
-function getWishes() {
-    try { return JSON.parse(localStorage.getItem(WISH_KEY)) || []; }
-    catch { return []; }
-}
-function saveWishes(w) { localStorage.setItem(WISH_KEY, JSON.stringify(w)); }
+let wishesData = [];
 
-function submitWish(e) {
+async function getWishes() {
+    try { 
+        const res = await fetch(KVDB_URL);
+        if(res.ok) {
+            const data = await res.json();
+            wishesData = Array.isArray(data) ? data : [];
+        } else {
+            wishesData = JSON.parse(localStorage.getItem(WISH_KEY)) || [];
+        }
+    }
+    catch { 
+        wishesData = JSON.parse(localStorage.getItem(WISH_KEY)) || [];
+    }
+    return wishesData;
+}
+
+async function saveWishes(w) { 
+    wishesData = w;
+    localStorage.setItem(WISH_KEY, JSON.stringify(w)); 
+    try {
+        await fetch(KVDB_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(w)
+        });
+    } catch (e) {}
+}
+
+async function submitWish(e) {
     e.preventDefault();
+    const btn = document.querySelector('.btn-submit');
+    const oldText = btn.textContent;
+    btn.textContent = 'Mengirim...';
+    btn.disabled = true;
+
     const name = document.getElementById('wish-name').value.trim();
     const msg = document.getElementById('wish-message').value.trim();
     const att = document.getElementById('wish-attendance').value;
-    if (!name || !msg) return;
+    
+    if (!name || !msg) {
+        btn.textContent = oldText;
+        btn.disabled = false;
+        return;
+    }
 
-    const wishes = getWishes();
+    const wishes = await getWishes();
     wishes.unshift({ id: Date.now(), name, message: msg, attendance: att, time: new Date().toISOString() });
-    saveWishes(wishes);
+    await saveWishes(wishes);
+    
     document.getElementById('wish-form').reset();
-    renderWishes();
+    renderWishesData();
 
     // Feedback
-    const btn = document.querySelector('.btn-submit');
     btn.textContent = '✅ Terkirim!';
     btn.style.background = '#2E7D32';
-    setTimeout(() => { btn.textContent = 'Kirim Ucapan ✉'; btn.style.background = ''; }, 2000);
+    setTimeout(() => { 
+        btn.textContent = 'Kirim Ucapan ✉'; 
+        btn.style.background = ''; 
+        btn.disabled = false;
+    }, 2000);
 }
 
-function renderWishes() {
-    const wishes = getWishes();
+function renderWishesData() {
     const list = document.getElementById('wishes-list');
-    document.getElementById('wishes-count-number').textContent = wishes.length;
+    document.getElementById('wishes-count-number').textContent = wishesData.length;
 
     list.querySelectorAll('.wish-card').forEach(c => c.remove());
 
     const labels = { hadir: 'Hadir', tidak: 'Tidak Hadir', ragu: 'Ragu-ragu' };
 
-    wishes.forEach(w => {
+    wishesData.forEach(w => {
         const card = document.createElement('div');
         card.className = 'wish-card';
         card.innerHTML = `
@@ -206,7 +244,10 @@ function renderWishes() {
     });
 }
 
-function loadWishes() { renderWishes(); }
+async function loadWishes() { 
+    await getWishes();
+    renderWishesData(); 
+}
 
 function timeAgo(d) {
     const diff = Date.now() - new Date(d).getTime();
