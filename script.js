@@ -149,42 +149,17 @@ function initCountdown() {
 }
 
 // ============================================
-// GUESTBOOK (Permanent Storage via KVDB)
+// GUESTBOOK
 // ============================================
-const KVDB_URL = 'https://kvdb.io/15zZiszWTxQYhXX8u4XwmX/wishes';
 const WISH_KEY = 'kenzo_khitan_wishes';
 
-let wishesData = [];
-
-async function getWishes() {
-    try { 
-        const res = await fetch(KVDB_URL);
-        if(res.ok) {
-            const data = await res.json();
-            wishesData = Array.isArray(data) ? data : [];
-        } else {
-            wishesData = JSON.parse(localStorage.getItem(WISH_KEY)) || [];
-        }
-    }
-    catch { 
-        wishesData = JSON.parse(localStorage.getItem(WISH_KEY)) || [];
-    }
-    return wishesData;
+function getWishes() {
+    try { return JSON.parse(localStorage.getItem(WISH_KEY)) || []; }
+    catch { return []; }
 }
+function saveWishes(w) { localStorage.setItem(WISH_KEY, JSON.stringify(w)); }
 
-async function saveWishes(w) { 
-    wishesData = w;
-    localStorage.setItem(WISH_KEY, JSON.stringify(w)); 
-    try {
-        await fetch(KVDB_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(w)
-        });
-    } catch (e) {}
-}
-
-async function submitWish(e) {
+function submitWish(e) {
     e.preventDefault();
     const btn = document.querySelector('.btn-submit');
     const oldText = btn.textContent;
@@ -201,12 +176,12 @@ async function submitWish(e) {
         return;
     }
 
-    const wishes = await getWishes();
+    const wishes = getWishes();
     wishes.unshift({ id: Date.now(), name, message: msg, attendance: att, time: new Date().toISOString() });
-    await saveWishes(wishes);
+    saveWishes(wishes);
     
     document.getElementById('wish-form').reset();
-    renderWishesData();
+    renderWishes();
 
     // Feedback
     btn.textContent = '✅ Terkirim!';
@@ -218,15 +193,16 @@ async function submitWish(e) {
     }, 2000);
 }
 
-function renderWishesData() {
+function renderWishes() {
+    const wishes = getWishes();
     const list = document.getElementById('wishes-list');
-    document.getElementById('wishes-count-number').textContent = wishesData.length;
+    document.getElementById('wishes-count-number').textContent = wishes.length;
 
     list.querySelectorAll('.wish-card').forEach(c => c.remove());
 
     const labels = { hadir: 'Hadir', tidak: 'Tidak Hadir', ragu: 'Ragu-ragu' };
 
-    wishesData.forEach(w => {
+    wishes.forEach(w => {
         const card = document.createElement('div');
         card.className = 'wish-card';
         card.innerHTML = `
@@ -244,10 +220,7 @@ function renderWishesData() {
     });
 }
 
-async function loadWishes() { 
-    await getWishes();
-    renderWishesData(); 
-}
+function loadWishes() { renderWishes(); }
 
 function timeAgo(d) {
     const diff = Date.now() - new Date(d).getTime();
