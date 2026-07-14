@@ -282,3 +282,24 @@ window.addEventListener('load', () => {
 });
 
 console.log('🌹 Undangan Walimatul Khitan - Muhammad Kenzo Al Barra');
+
+// Handle URL Parameter for Guest Name
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('to');
+    
+    if (guestName) {
+        const nameBox = document.getElementById('guest-name');
+        const boxContainer = document.getElementById('guest-box');
+        if (nameBox && boxContainer) {
+            nameBox.textContent = guestName;
+            boxContainer.style.display = 'block';
+        }
+        
+        // Auto-fill guestbook name if param exists
+        const wishNameInput = document.getElementById('wish-name');
+        if (wishNameInput) {
+            wishNameInput.value = guestName;
+        }
+    }
+});
