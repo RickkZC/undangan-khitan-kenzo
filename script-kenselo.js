@@ -152,7 +152,7 @@ function initCountdown() {
 // ============================================
 // GUESTBOOK (Google Sheets Backend)
 // ============================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbweGoDDjI60WHQz35XW5LcERYapWM-8OuC5RJZWdziN-4OlsSyosPFPmG-18YFIWzowaw/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyS2KiE3Gxy_d2Ho7pR1S3ISDME8kqEZPsRJT_SqoSEJE0GZyi07FlCB8P5eBXp9MKbqQ/exec';
 const WISH_KEY = 'kenzo_khitan_wishes';
 
 let wishesData = [];
